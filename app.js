@@ -17,9 +17,9 @@ const Course = mongoose.model('Course', courseSchema);
 
 async function createCourse() {
     const course  = new Course({
-        name: 'Angular Course',
-        author: 'Adrian Angara',
-        tags: [ 'angular', 'frontend' ],
+        name: 'Spring Course',
+        author: 'Adrianooo',
+        tags: [ 'spring', 'frontend' ],
         isPublished: true
     });
 
@@ -57,7 +57,30 @@ async function getCourses() {
     console.log(courses);
 }
 
-// createCourse();
+async function updateCourse(id) {
+    const course = await Course.findById(id);
 
-getCourses();
+    if(!course) return;
+
+    course.author = 'another author';
+    //Alternatively
+    // course.set({
+    //      name: '',
+    //      author: ' '
+    // });
+    const result = await course.save();
+    console.log(result);
+}
+
+async function removeCourse(id) {
+    const result = await Course.findByIdAndRemove(id);
+    console.log(result);
+
+}
+
+//CRUD Operations
+// createCourse();
+// getCourses();
+// updateCourse('5e8390b3f1c8bc1a04e2e7f7');
+removeCourse('5e839c0a348b551b34971c22');
 
